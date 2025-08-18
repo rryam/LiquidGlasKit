@@ -96,6 +96,7 @@ struct GlassEffectModifier: ViewModifier {
     
     @ViewBuilder
     func body(content: Content) -> some View {
+#if compiler(>=6.2)
         if #available(iOS 26.0, *) {
             // Choose effect type and apply modifications
             let base: Glass = {
@@ -123,6 +124,9 @@ struct GlassEffectModifier: ViewModifier {
         } else {
             content
         }
+#else
+        content
+#endif
     }
 }
 

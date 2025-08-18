@@ -28,6 +28,7 @@ struct ScrollEdgeEffectModifier: ViewModifier {
     let effect: EffectState
     
     func body(content: Content) -> some View {
+#if compiler(>=6.2)
         if #available(iOS 26.0, *) {
             switch effect {
             case .off:
@@ -43,6 +44,9 @@ struct ScrollEdgeEffectModifier: ViewModifier {
             content
                 .customNavBarBlur()
         }
+        #else
+        content.customNavBarBlur()
+        #endif
     }
 }
 

@@ -37,11 +37,40 @@ public struct GlassCardModifier: ViewModifier {
     
     public func body(content: Content) -> some View {
         content
+#if compiler(>=6.2)
             .background {
-                RoundedRectangle(cornerRadius: radius, style: .continuous)
-                    .fill(fill)
-                    .glassEffect(.clear.interactive(), in: .rect(cornerRadius: radius))
+                if #available(iOS 26.0, *) {
+                    RoundedRectangle(cornerRadius: radius, style: .continuous)
+                        .fill(fill)
+                        .glassEffect(.clear.interactive(), in: .rect(cornerRadius: radius))
+                } else {
+                    oldBackgroundView
+                }
             }
+#else
+            .background(oldBackgroundView)
+#endif
+    }
+    
+    var oldBackgroundView: some View {
+        RoundedRectangle(cornerRadius: radius, style: .continuous)
+            .fill(.ultraThinMaterial.opacity(0.3))
+            .shadow(color: Color.primary.opacity(0.1), radius: 20, x: 0, y: 10)
+            .shadow(color: Color.clear.opacity(0.5), radius: 10, x: 0, y: 5)
+            .overlay(
+                RoundedRectangle(cornerRadius: radius, style: .continuous)
+                    .strokeBorder(
+                        LinearGradient(
+                            colors: [
+                                Color.primary.opacity(0.3),
+                                Color.primary.opacity(0.3)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 0.5
+                    )
+            )
     }
 }
 
