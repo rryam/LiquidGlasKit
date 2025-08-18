@@ -21,7 +21,7 @@ public enum GlassEffect {
 /// Represents the available shapes that can be applied to a glass effect.
 public enum GlassShape: Equatable {
     
-    /// No specific shape.  
+    /// No specific shape.
     /// Defaults to a container-relative shape (adapts based on container’s style).
     case none
     
@@ -32,7 +32,7 @@ public enum GlassShape: Equatable {
     /// - Parameter cornerRadius: The radius to apply to each corner.
     case roundedRect(cornerRadius: CGFloat)
     
-    /// A concentric shape (new in iOS 26).  
+    /// A concentric shape (new in iOS 26).
     /// Falls back to a rounded rectangle with radius `26.0` on older versions.
     case concentric
     
@@ -57,6 +57,7 @@ public enum GlassShape: Equatable {
                 return .rect(cornerRadius: cornerRadius)
                 
             case .concentric:
+#if compiler(>=6.2)
                 if #available(iOS 26.0, *) {
                     // Uses the new concentric corners API
                     return .rect(corners: .concentric, isUniform: true)
@@ -64,6 +65,10 @@ public enum GlassShape: Equatable {
                     // Fallback to rounded rect for older iOS
                     return .rect(cornerRadius: 26.0)
                 }
+                #else
+                // Fallback to rounded rect for older iOS
+                return .rect(cornerRadius: 26.0)
+                #endif
                 
             case .capsule:
                 return .capsule
@@ -89,6 +94,7 @@ struct GlassEffectModifier: ViewModifier {
     /// The optional tint color for the glass effect.
     let tint: Color?
     
+    @ViewBuilder
     func body(content: Content) -> some View {
         if #available(iOS 26.0, *) {
             // Choose effect type and apply modifications
@@ -110,7 +116,28 @@ struct GlassEffectModifier: ViewModifier {
             
             // Apply shape if provided
             if let shape, shape != .none {
-                content.glassEffect(glassWithTint, in: shape.shape)
+                switch shape {
+                case .rect:
+                    content.glassEffect(glassWithTint, in: .rect)
+                case .roundedRect(let cornerRadius):
+                    content.glassEffect(glassWithTint, in: .rect(cornerRadius: cornerRadius))
+                case .concentric:
+#if compiler(>=6.2)
+                    if #available(iOS 26.0, *) {
+                        content.glassEffect(glassWithTint, in: .rect(corners: .concentric, isUniform: true))
+                    } else {
+                        content.glassEffect(glassWithTint, in: .rect(cornerRadius: 26.0))
+                    }
+#else
+                    content.glassEffect(glassWithTint, in: .rect(cornerRadius: 26.0))
+#endif
+                case .capsule:
+                    content.glassEffect(glassWithTint, in: .capsule)
+                case .circle:
+                    content.glassEffect(glassWithTint, in: .circle)
+                case .none:
+                    content.glassEffect(glassWithTint)
+                }
             } else {
                 content.glassEffect(glassWithTint)
             }
@@ -139,6 +166,14 @@ public extension View {
     ///   - tint: An optional tint color. If `nil`, no tint is applied.
     /// - Returns: A view with the specified glass effect applied.
     func applyGlassEffect(_ effect: GlassEffect = .clearInteractive, cornerRadius: CGFloat? = nil, tint: Color? = nil) -> some View {
-        modifier(GlassEffectModifier(effect: effect, cornerRadius: cornerRadius, tint: tint))
+        let shape: GlassShape? = {
+            if let cornerRadius {
+                return .roundedRect(cornerRadius: cornerRadius)
+            } else {
+                return nil
+            }
+        }()
+        
+        return modifier(GlassEffectModifier(effect: effect, shape: shape, tint: tint))
     }
 }
