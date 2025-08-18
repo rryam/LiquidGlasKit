@@ -22,7 +22,7 @@ public enum GlassEffect {
 public enum GlassShape: Equatable {
     
     /// No specific shape.
-    /// Defaults to a container-relative shape (adapts based on container’s style).
+    /// Defaults to a container-relative shape (adapts based on container's style).
     case none
     
     /// A standard rectangle shape.
@@ -47,7 +47,7 @@ public enum GlassShape: Equatable {
         get {
             switch self {
             case .none:
-                // Adapts to the container’s relative shape
+                // Adapts to the container's relative shape
                 return .containerRelative
                 
             case .rect:
@@ -65,10 +65,10 @@ public enum GlassShape: Equatable {
                     // Fallback to rounded rect for older iOS
                     return .rect(cornerRadius: 26.0)
                 }
-                #else
+#else
                 // Fallback to rounded rect for older iOS
                 return .rect(cornerRadius: 26.0)
-                #endif
+#endif
                 
             case .capsule:
                 return .capsule
@@ -116,28 +116,7 @@ struct GlassEffectModifier: ViewModifier {
             
             // Apply shape if provided
             if let shape, shape != .none {
-                switch shape {
-                case .rect:
-                    content.glassEffect(glassWithTint, in: .rect)
-                case .roundedRect(let cornerRadius):
-                    content.glassEffect(glassWithTint, in: .rect(cornerRadius: cornerRadius))
-                case .concentric:
-#if compiler(>=6.2)
-                    if #available(iOS 26.0, *) {
-                        content.glassEffect(glassWithTint, in: .rect(corners: .concentric, isUniform: true))
-                    } else {
-                        content.glassEffect(glassWithTint, in: .rect(cornerRadius: 26.0))
-                    }
-#else
-                    content.glassEffect(glassWithTint, in: .rect(cornerRadius: 26.0))
-#endif
-                case .capsule:
-                    content.glassEffect(glassWithTint, in: .capsule)
-                case .circle:
-                    content.glassEffect(glassWithTint, in: .circle)
-                case .none:
-                    content.glassEffect(glassWithTint)
-                }
+                content.glassEffect(glassWithTint, in: AnyShape(shape.shape))
             } else {
                 content.glassEffect(glassWithTint)
             }
@@ -166,14 +145,7 @@ public extension View {
     ///   - tint: An optional tint color. If `nil`, no tint is applied.
     /// - Returns: A view with the specified glass effect applied.
     func applyGlassEffect(_ effect: GlassEffect = .clearInteractive, cornerRadius: CGFloat? = nil, tint: Color? = nil) -> some View {
-        let shape: GlassShape? = {
-            if let cornerRadius {
-                return .roundedRect(cornerRadius: cornerRadius)
-            } else {
-                return nil
-            }
-        }()
-        
+        let shape: GlassShape? = cornerRadius != nil ? .roundedRect(cornerRadius: cornerRadius!) : nil
         return modifier(GlassEffectModifier(effect: effect, shape: shape, tint: tint))
     }
 }
