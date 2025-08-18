@@ -12,9 +12,10 @@ A Swift package providing customizable modifiers for easy liquid glass effects a
 
 ## Requirements
 
-- iOS 26.0+ (with fallbacks for earlier versions)
-- macOS 26.0+
-- Swift 6.2+
+- iOS 16.0+ (native glass effects available on iOS 26.0+)
+- macOS 13.0+ (native glass effects available on macOS 26.0+)
+- Swift 6.0+
+- Xcode 16.0+ (native glass with Xcode 26.0+)
 
 ## Installation
 
