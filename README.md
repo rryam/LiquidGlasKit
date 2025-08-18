@@ -5,16 +5,18 @@ A Swift package providing customizable modifiers for easy liquid glass effects a
 ## Features
 
 - **Glass Card Effects**: Beautiful glass cards with adaptive transparency that respond to light/dark mode
-- **Advanced Glass Effects**: Fine-grained control over glass appearance with tinting and corner radius options
-- **Navigation Bar Blur**: Custom blurred overlays for navigation areas
-- **Scroll Edge Effects**: Smooth scroll interactions with glass-like edge behaviors
+- **Advanced Glass Effects**: Fine-grained control over glass appearance with tinting and corner radius options  
+- **Cross-Platform Support**: Works on iOS 26.0+ with graceful fallbacks for older versions
+- **watchOS Compatible**: Includes specialized glass effects optimized for Apple Watch
 - **SwiftUI Integration**: Drop-in modifiers that work seamlessly with your existing SwiftUI views
 
 ## Requirements
 
-- iOS 26.0+ (with fallbacks for earlier versions)
-- macOS 26.0+
-- Swift 6.2+
+- iOS 16.0+ (native glass effects available on iOS 26.0+)
+- watchOS 9.0+
+- macOS 13.0+ (native glass effects available on macOS 26.0+)
+- Swift 5.7+
+- Xcode 14.0+ (enhanced features with Xcode 16.2+)
 
 ## Installation
 

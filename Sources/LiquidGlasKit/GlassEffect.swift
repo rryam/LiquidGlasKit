@@ -152,4 +152,25 @@ public extension View {
         let shape: GlassShape? = cornerRadius != nil ? .roundedRect(cornerRadius: cornerRadius!) : nil
         return modifier(GlassEffectModifier(effect: effect, shape: shape, tint: tint))
     }
+    
+    /// Applies a glass effect with a specific shape and optional tint.
+    ///
+    /// This modifier provides fine-grained control over the glass effect appearance,
+    /// allowing you to specify the type of glass effect, shape, and tint color.
+    /// The glass effect is only available on iOS 26.0 and later.
+    ///
+    /// ```swift
+    /// Rectangle()
+    ///     .frame(width: 200, height: 100)
+    ///     .applyGlassEffect(.regularInteractive, shape: .capsule, tint: .blue)
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - effect: The type of glass effect to apply. Defaults to `.clearInteractive`.
+    ///   - shape: The shape to apply to the glass effect. If `nil`, no specific shape is applied.
+    ///   - tint: An optional tint color. If `nil`, no tint is applied.
+    /// - Returns: A view with the specified glass effect applied.
+    func applyGlassEffect(_ effect: GlassEffect = .clearInteractive, shape: GlassShape? = nil, tint: Color? = nil) -> some View {
+        return modifier(GlassEffectModifier(effect: effect, shape: shape, tint: tint))
+    }
 }
