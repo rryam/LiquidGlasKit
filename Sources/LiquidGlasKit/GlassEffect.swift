@@ -18,6 +18,63 @@ public enum GlassEffect {
     case regularInteractive
 }
 
+/// Represents the available shapes that can be applied to a glass effect.
+public enum GlassShape: Equatable {
+    
+    /// No specific shape.  
+    /// Defaults to a container-relative shape (adapts based on container’s style).
+    case none
+    
+    /// A standard rectangle shape.
+    case rect
+    
+    /// A rounded rectangle shape with a specified corner radius.
+    /// - Parameter cornerRadius: The radius to apply to each corner.
+    case roundedRect(cornerRadius: CGFloat)
+    
+    /// A concentric shape (new in iOS 26).  
+    /// Falls back to a rounded rectangle with radius `26.0` on older versions.
+    case concentric
+    
+    /// A capsule shape (pill-like, stretched to container dimensions).
+    case capsule
+    
+    /// A circle shape (forces equal width and height).
+    case circle
+    
+    /// Returns the corresponding SwiftUI `Shape` for the enum case.
+    var shape: any Shape {
+        get {
+            switch self {
+            case .none:
+                // Adapts to the container’s relative shape
+                return .containerRelative
+                
+            case .rect:
+                return .rect
+                
+            case .roundedRect(let cornerRadius):
+                return .rect(cornerRadius: cornerRadius)
+                
+            case .concentric:
+                if #available(iOS 26.0, *) {
+                    // Uses the new concentric corners API
+                    return .rect(corners: .concentric, isUniform: true)
+                } else {
+                    // Fallback to rounded rect for older iOS
+                    return .rect(cornerRadius: 26.0)
+                }
+                
+            case .capsule:
+                return .capsule
+                
+            case .circle:
+                return .circle
+            }
+        }
+    }
+}
+
 /// A modifier that applies a glass effect with optional corner radius and tint.
 ///
 /// This modifier provides the implementation for the glass effect functionality,
@@ -26,8 +83,8 @@ struct GlassEffectModifier: ViewModifier {
     /// The type of glass effect to apply.
     let effect: GlassEffect
     
-    /// The optional corner radius for the glass effect.
-    let cornerRadius: CGFloat?
+    /// The optional shape for the glass effect.
+    let shape: GlassShape?
     
     /// The optional tint color for the glass effect.
     let tint: Color?
@@ -51,9 +108,9 @@ struct GlassEffectModifier: ViewModifier {
             // Apply tint if provided
             let glassWithTint = tint != nil ? base.tint(tint!) : base
             
-            // Apply corner radius shape if provided
-            if let cornerRadius {
-                content.glassEffect(glassWithTint, in: .rect(cornerRadius: cornerRadius))
+            // Apply shape if provided
+            if let shape, shape != .none {
+                content.glassEffect(glassWithTint, in: shape.shape)
             } else {
                 content.glassEffect(glassWithTint)
             }
