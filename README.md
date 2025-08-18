@@ -13,10 +13,9 @@ A Swift package providing customizable modifiers for easy liquid glass effects a
 ## Requirements
 
 - iOS 16.0+ (native glass effects available on iOS 26.0+)
-- watchOS 9.0+
 - macOS 13.0+ (native glass effects available on macOS 26.0+)
-- Swift 5.7+
-- Xcode 14.0+ (enhanced features with Xcode 16.2+)
+- Swift 6.0+
+- Xcode 16.0+ (native glass features with Xcode 26.0+)
 
 ## Installation
 
@@ -26,7 +25,7 @@ Add LiquidGlasKit to your project using Swift Package Manager:
 
 ```
 dependencies: [
-.package(url: "https://github.com/rryam/LiquidGlasKit.git", from: "0.0.1")
+.package(url: "https://github.com/rryam/LiquidGlasKit.git", from: "0.2.0")
 ]
 ```
 
