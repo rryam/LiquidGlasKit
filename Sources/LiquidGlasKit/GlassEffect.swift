@@ -118,6 +118,7 @@ struct GlassEffectModifier: ViewModifier {
             // Apply shape if provided
             if let shape, shape != .none {
                 content.glassEffect(glassWithTint, in: AnyShape(shape.shape))
+                    .clipShape(AnyShape(shape.shape))
             } else {
                 content.glassEffect(glassWithTint)
             }
