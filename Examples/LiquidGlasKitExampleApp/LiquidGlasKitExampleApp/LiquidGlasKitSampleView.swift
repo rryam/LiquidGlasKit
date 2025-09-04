@@ -1,5 +1,5 @@
 import SwiftUI
-
+import LiquidGlasKit
 /// A comprehensive sample view showcasing all LiquidGlasKit effects.
 ///
 /// This view demonstrates the various glass effects, blur effects, and modifiers

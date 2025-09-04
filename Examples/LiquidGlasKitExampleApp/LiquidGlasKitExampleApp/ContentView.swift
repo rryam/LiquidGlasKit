@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import LiquidGlasKit
 
 struct ContentView: View {
     var body: some View {
