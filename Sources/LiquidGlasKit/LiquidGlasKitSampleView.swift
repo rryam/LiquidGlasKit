@@ -11,35 +11,35 @@ public struct LiquidGlasKitSampleView: View {
     public init() {}
     
     public var body: some View {
-        NavigationStack {
-            TabView(selection: $selectedTab) {
-                // Glass Card Effects Tab
-                glassCardEffectsView
-                    .tabItem {
-                        Image(systemName: "rectangle.3.group")
-                        Text("Glass Cards")
-                    }
-                    .tag(0)
-                
-                // Glass Effects Tab
-                glassEffectsView
-                    .tabItem {
-                        Image(systemName: "sparkles")
-                        Text("Glass Effects")
-                    }
-                    .tag(1)
-                
-                // Scroll & Blur Effects Tab
-                scrollAndBlurEffectsView
-                    .tabItem {
-                        Image(systemName: "scroll")
-                        Text("Scroll & Blur")
-                    }
-                    .tag(2)
-            }
-            .navigationTitle("LiquidGlasKit Demo")
-            .navigationBarTitleDisplayMode(.large)
+        TabView(selection: $selectedTab) {
+            // Glass Card Effects Tab
+            glassCardEffectsView
+                .tabItem {
+                    Image(systemName: "rectangle.3.group")
+                    Text("Glass Cards")
+                }
+                .tag(0)
+
+            // Glass Effects Tab
+            glassEffectsView
+                .tabItem {
+                    Image(systemName: "sparkles")
+                    Text("Glass Effects")
+                }
+                .tag(1)
+
+            // Scroll & Blur Effects Tab
+            scrollAndBlurEffectsView
+                .tabItem {
+                    Image(systemName: "scroll")
+                    Text("Scroll & Blur")
+                }
+                .tag(2)
         }
+#if os(iOS)
+        .navigationTitle("LiquidGlasKit Demo")
+        .navigationBarTitleDisplayMode(.large)
+#endif
     }
     
     // MARK: - Glass Card Effects
@@ -287,22 +287,23 @@ public struct LiquidGlasKitSampleView: View {
     
     // MARK: - Scroll and Blur Effects
     private var scrollAndBlurEffectsView: some View {
-        NavigationView {
-            VStack(spacing: 0) {
-                // Header explaining the effects
-                VStack(spacing: 8) {
-                    Text("Scroll & Blur Effects")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    
-                    Text("Scroll to see edge effects in action")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                .padding()
-                .background(Color(.systemGroupedBackground))
-                
-                TabView {
+        VStack(spacing: 0) {
+            // Header explaining the effects
+            VStack(spacing: 8) {
+                Text("Scroll & Blur Effects")
+                    .font(.title2)
+                    .fontWeight(.bold)
+
+                Text("Scroll to see edge effects in action")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
+            .padding()
+#if os(iOS)
+            .background(Color(.systemGroupedBackground))
+#endif
+
+            TabView {
                     // Scroll Edge Effect - Off
                     scrollContent(title: "No Edge Effect", effect: .off)
                         .tabItem {
@@ -333,10 +334,10 @@ public struct LiquidGlasKitSampleView: View {
                             Text("Custom Blur")
                         }
                 }
+#if os(iOS)
                 .tabViewStyle(.page(indexDisplayMode: .always))
+#endif
             }
-        }
-        .navigationBarHidden(true)
     }
     
     private func scrollContent(title: String, effect: EffectState) -> some View {
