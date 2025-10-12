@@ -39,7 +39,7 @@ public struct GlassCardModifier: ViewModifier {
         content
 #if compiler(>=6.2)
             .background {
-                if #available(iOS 26.0, *) {
+                if #available(iOS 26.0, macOS 26.0, *) {
                     RoundedRectangle(cornerRadius: radius, style: .continuous)
                         .fill(fill)
                         .glassEffect(.clear.interactive(), in: .rect(cornerRadius: radius))
