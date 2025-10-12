@@ -131,7 +131,7 @@ public struct LiquidGlasKitSampleView: View {
                     .fontWeight(.bold)
                     .padding(.top)
                 
-                Text("These effects require iOS 26.0+ to display properly")
+                Text("These effects require iOS 26.0+ and macOS 26.0+ to display properly")
                     .font(.caption)
                     .foregroundColor(.secondary)
                     .padding(.horizontal)

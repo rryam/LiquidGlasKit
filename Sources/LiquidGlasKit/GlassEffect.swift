@@ -58,7 +58,7 @@ public enum GlassShape: Equatable {
                 
             case .concentric:
 #if compiler(>=6.2)
-                if #available(iOS 26.0, *) {
+                if #available(iOS 26.0, macOS 26.0, *) {
                     // Uses the new concentric corners API
                     return .rect(corners: .concentric, isUniform: true)
                 } else {
@@ -97,7 +97,7 @@ struct GlassEffectModifier: ViewModifier {
     @ViewBuilder
     func body(content: Content) -> some View {
 #if compiler(>=6.2)
-        if #available(iOS 26.0, *) {
+        if #available(iOS 26.0, macOS 26.0, *) {
             // Choose effect type and apply modifications
             let base: Glass = {
                 switch effect {
