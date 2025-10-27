@@ -34,7 +34,7 @@ Add LiquidGlasKit to your project using Swift Package Manager:
 
 ```
 dependencies: [
-.package(url: "https://github.com/rryam/LiquidGlasKit.git", from: "0.3.0")
+.package(url: "https://github.com/rryam/LiquidGlasKit.git", from: "1.0.0")
 ]
 ```
 
