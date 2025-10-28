@@ -6,7 +6,6 @@ import SwiftUI
 /// available in the LiquidGlasKit package, providing a visual reference for developers.
 public struct LiquidGlasKitSampleView: View {
     @State private var selectedTab = 0
-    @State private var scrollPosition: CGFloat = 0
     
     public init() {}
     
