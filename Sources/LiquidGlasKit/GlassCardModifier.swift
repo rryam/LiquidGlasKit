@@ -20,7 +20,7 @@ public struct GlassCardModifier: ViewModifier {
     var fill: Color {
         switch scheme {
         case .dark:
-            return Color.clear.opacity(0.1)
+            return Color.clear
         case .light:
             return Color.secondary.opacity(0.1)
         @unknown default:
