@@ -7,8 +7,8 @@ A Swift package providing customizable modifiers for easy liquid glass effects a
 ## Features
 
 - **Glass Card Effects**: Beautiful glass cards with adaptive transparency that respond to light/dark mode
-- **Advanced Glass Effects**: Fine-grained control over glass appearance with tinting and corner radius options  
-- **Cross-Platform Support**: Works on iOS 26.0+ with graceful fallbacks for older versions
+- **Advanced Glass Effects**: Fine-grained control over glass appearance with tinting and corner radius options
+- **Cross-Platform Support**: Works on iOS 16.0+ with graceful fallbacks for older versions
 - **SwiftUI Integration**: Drop-in modifiers that work seamlessly with your existing SwiftUI views
 
 ## Support
