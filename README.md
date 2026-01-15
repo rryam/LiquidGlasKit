@@ -1,5 +1,4 @@
 # LiquidGlasKit
-[![Star History Chart](https://api.star-history.com/svg?repos=rryam/LiquidGlasKit&type=Date)](https://star-history.com/#rryam/LiquidGlasKit&Date)
 
 
 A Swift package providing customizable modifiers for easy liquid glass effects and materials in SwiftUI.
@@ -166,3 +165,5 @@ struct ScrollableGlassView: View {
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+[![Star History Chart](https://api.star-history.com/svg?repos=rryam/LiquidGlasKit&type=Date)](https://star-history.com/#rryam/LiquidGlasKit&Date)
