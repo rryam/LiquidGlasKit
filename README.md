@@ -1,6 +1,5 @@
 # LiquidGlasKit
 
-
 A Swift package providing customizable modifiers for easy liquid glass effects and materials in SwiftUI.
 
 ![LiquidGlasKit Sample](sample.png)
@@ -11,14 +10,6 @@ A Swift package providing customizable modifiers for easy liquid glass effects a
 - **Advanced Glass Effects**: Fine-grained control over glass appearance with tinting and corner radius options  
 - **Cross-Platform Support**: Works on iOS 26.0+ with graceful fallbacks for older versions
 - **SwiftUI Integration**: Drop-in modifiers that work seamlessly with your existing SwiftUI views
-
-## Support
-
-Love this project? Check out my books to explore more of AI and iOS development:
-- [Exploring AI for iOS Development](https://academy.rudrank.com/product/ai)
-- [Exploring AI-Assisted Coding for iOS Development](https://academy.rudrank.com/product/ai-assisted-coding)
-
-Your support helps to keep this project growing!
 
 ## Requirements
 
