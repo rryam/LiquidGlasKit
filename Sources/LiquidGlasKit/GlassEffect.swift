@@ -168,10 +168,10 @@ public extension View {
     ///
     /// - Parameters:
     ///   - effect: The type of glass effect to apply. Defaults to `.clearInteractive`.
-    ///   - shape: The shape to apply to the glass effect. If `nil`, no specific shape is applied.
+    ///   - shape: The shape to apply to the glass effect. Pass `nil` to apply no specific shape.
     ///   - tint: An optional tint color. If `nil`, no tint is applied.
     /// - Returns: A view with the specified glass effect applied.
-    func applyGlassEffect(_ effect: GlassEffect = .clearInteractive, shape: GlassShape? = nil, tint: Color? = nil) -> some View {
+    func applyGlassEffect(_ effect: GlassEffect = .clearInteractive, shape: GlassShape?, tint: Color? = nil) -> some View {
         return modifier(GlassEffectModifier(effect: effect, shape: shape, tint: tint))
     }
 }
