@@ -59,9 +59,23 @@ Text("Custom Glass Card")
 Apply advanced glass effects with full control over appearance:
 
 ```swift
+Text("Default Glass")
+    .padding()
+    .applyGlassEffect()
+```
+
+```swift
 Rectangle()
     .frame(width: 200, height: 100)
     .applyGlassEffect(.regularInteractive, cornerRadius: 12, tint: .blue)
+```
+
+Use `shape:` when you want a specific glass shape:
+
+```swift
+Text("Capsule Glass")
+    .padding()
+    .applyGlassEffect(.clearInteractive, shape: .capsule)
 ```
 
 Available glass effect types:
